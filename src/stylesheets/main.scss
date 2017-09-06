@@ -1,3 +1,12 @@
 .nav-sidebar {
   margin-top: 30px;
 }
+
+.spaced-top {
+  margin-top: 10px;
+}
+
+// double classes to override bootstrap
+.verticaly-centered.verticaly-centered {
+  vertical-align: middle;
+}

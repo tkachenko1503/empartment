@@ -1,10 +1,42 @@
 import React from "react";
-import {Table} from 'react-bootstrap';
+import {Table, Button} from 'react-bootstrap';
 import {Link} from 'react-router';
+import partial from 'lodash/partial';
 
-const EmployeesTable = props => {
+const DepartmentRow = ({id, firstName, lastName, departmentName, remove}) => {
   return (
-    <div>
+    <tr>
+      <td className="verticaly-centered">{id}</td>
+      <td className="verticaly-centered">{firstName}</td>
+      <td className="verticaly-centered">{lastName}</td>
+      <td className="verticaly-centered">{departmentName}</td>
+      <td className="verticaly-centered">
+        <Link to={`/employee/${id}/edit`}>
+          <Button bsStyle="link">
+            edit
+          </Button>
+        </Link>
+
+        <Button onClick={remove} bsStyle="link">
+          remove
+        </Button>
+      </td>
+    </tr>
+  );
+};
+
+const makeEmployeeRow =
+  ({remove}) =>
+    employee =>
+      <DepartmentRow {...employee}
+                     key={employee.id}
+                     remove={partial(remove, employee)}/>;
+
+const EmployeesTable = ({employees, showRemoveDialog, className}) => {
+  const partials = {remove: showRemoveDialog};
+
+  return (
+    <div className={className}>
       <Table striped bordered condensed hover>
         <thead>
         <tr>
@@ -17,29 +49,7 @@ const EmployeesTable = props => {
         </thead>
 
         <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Zuckerberg</td>
-          <td>Facebook</td>
-          <td>
-            <Link to="/employee/1/edit">
-              edit
-            </Link>
-          </td>
-        </tr>
-
-        <tr>
-          <td>2</td>
-          <td>Bill</td>
-          <td>Gates</td>
-          <td>Microsoft</td>
-          <td>
-            <Link to="/employee/2/edit">
-              edit
-            </Link>
-          </td>
-        </tr>
+        {employees.map(makeEmployeeRow(partials))}
         </tbody>
       </Table>
     </div>
