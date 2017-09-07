@@ -5,11 +5,6 @@ import {Link} from 'react-router';
 import DepartmentsTable from "./DepartmentsTable";
 import RemoveConfirm from "../common/RemoveConfirm";
 
-const mockDepartments = [
-  {id: 1, name: 'Facebook'},
-  {id: 2, name: 'Microsoft'},
-];
-
 export default class Department extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +17,10 @@ export default class Department extends React.Component {
     this.showRemoveDialog = this.showRemoveDialog.bind(this);
     this.hideRemoveDialog = this.hideRemoveDialog.bind(this);
     this.removeDepartment = this.removeDepartment.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.fetchDepartments();
   }
 
   showRemoveDialog(department) {
@@ -39,15 +38,13 @@ export default class Department extends React.Component {
   }
 
   removeDepartment() {
-    this.props.dispatch({
-      type: '',
-      departmentId: this.state.removedDepartment.id
-    });
-
+    this.props.removeDepartment(this.state.removedDepartment.id);
     this.hideRemoveDialog();
   }
 
   render() {
+    const {departments} = this.props;
+
     return (
       <div>
         <PageHeader>Departments</PageHeader>
@@ -59,7 +56,7 @@ export default class Department extends React.Component {
         </Link>
 
         <DepartmentsTable showRemoveDialog={this.showRemoveDialog}
-                          departments={mockDepartments}
+                          departments={departments}
                           className="spaced-top"/>
 
         {this.state.removedDepartment &&

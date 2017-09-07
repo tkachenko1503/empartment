@@ -5,11 +5,6 @@ import {Link} from 'react-router';
 import EmployeesTable from "./EmployeesTable";
 import RemoveConfirm from "../common/RemoveConfirm";
 
-const mockEmployees = [
-  {id: 1, firstName: 'Mark', lastName: 'Zuckerberg', departmentName: 'Facebook'},
-  {id: 2, firstName: 'Bill', lastName: 'Gates', departmentName: 'Microsoft'},
-];
-
 export default class Employee extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +17,10 @@ export default class Employee extends React.Component {
     this.showRemoveDialog = this.showRemoveDialog.bind(this);
     this.hideRemoveDialog = this.hideRemoveDialog.bind(this);
     this.removeEmployee = this.removeEmployee.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.fetchEmployees();
   }
 
   showRemoveDialog(employee) {
@@ -39,15 +38,13 @@ export default class Employee extends React.Component {
   }
 
   removeEmployee() {
-    this.props.dispatch({
-      type: '',
-      departmentId: this.state.removedEmployee.id
-    });
-
+    this.props.removeEmployee(this.state.removedEmployee.id);
     this.hideRemoveDialog();
   }
 
   render() {
+    const {employees} = this.props;
+
     return (
       <div>
         <PageHeader>Employee</PageHeader>
@@ -59,7 +56,7 @@ export default class Employee extends React.Component {
         </Link>
 
         <EmployeesTable showRemoveDialog={this.showRemoveDialog}
-                        employees={mockEmployees}
+                        employees={employees}
                         className="spaced-top"/>
 
         {this.state.removedEmployee &&

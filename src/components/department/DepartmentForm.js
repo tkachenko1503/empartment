@@ -6,7 +6,7 @@ import FormField from '../forms/FormField';
 import FormSubmit from '../forms/FormSubmit';
 
 const DepartmentForm = props => {
-  const {department = {}, departmentFormSubmit, formActionType} = props;
+  const {handleSubmit, makeRequest, formActionType} = props;
   const {error, invalid, submitting} = props;
 
   return (
@@ -15,11 +15,10 @@ const DepartmentForm = props => {
         {'Department ' + (formActionType === 'EDIT' ? 'edit' : 'add')}
       </PageHeader>
 
-      <Form horizontal onSubmit={departmentFormSubmit}>
+      <Form horizontal onSubmit={handleSubmit(makeRequest)}>
         <Field component={FormField}
                error={error}
-               value={department.name}
-               name="department_name"
+               name="name"
                label="Name"/>
 
         <FormSubmit invalid={invalid} submitting={submitting}/>

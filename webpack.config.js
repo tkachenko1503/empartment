@@ -3,7 +3,9 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   app_root: app_root,
+  devtool: 'source-map',
   entry: [
+    'whatwg-fetch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     'babel-polyfill',

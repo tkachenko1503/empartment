@@ -6,7 +6,7 @@ import FormField from '../forms/FormField';
 import FormSubmit from '../forms/FormSubmit';
 
 const EmployeeForm = props => {
-  const {employee = {}, departmentName, employeeFormSubmit, formActionType} = props;
+  const {handleSubmit, makeRequest, formActionType} = props;
   const {error, invalid, submitting} = props;
 
   return (
@@ -15,24 +15,21 @@ const EmployeeForm = props => {
         {'Employee ' + (formActionType === 'EDIT' ? 'edit' : 'add')}
       </PageHeader>
 
-      <Form horizontal onSubmit={employeeFormSubmit}>
+      <Form horizontal onSubmit={handleSubmit(makeRequest)}>
         <Field component={FormField}
                error={error}
-               value={employee.firstName}
-               name="employee_first_name"
+               name="firstName"
                label="First Name"/>
 
         <Field component={FormField}
                error={error}
-               value={employee.lastName}
-               name="employee_last_name"
+               name="lastName"
                label="Last Name"/>
 
         <Field component={FormField}
                error={error}
-               value={departmentName}
-               name="department_name"
-               label="Department Name"/>
+               name="departmentId"
+               label="Department Id"/>
 
         <FormSubmit invalid={invalid} submitting={submitting}/>
       </Form>

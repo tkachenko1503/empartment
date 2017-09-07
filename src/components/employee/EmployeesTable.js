@@ -3,13 +3,13 @@ import {Table, Button} from 'react-bootstrap';
 import {Link} from 'react-router';
 import partial from 'lodash/partial';
 
-const DepartmentRow = ({id, firstName, lastName, departmentName, remove}) => {
+const DepartmentRow = ({id, firstName, lastName, departmentId, remove}) => {
   return (
     <tr>
       <td className="verticaly-centered">{id}</td>
       <td className="verticaly-centered">{firstName}</td>
       <td className="verticaly-centered">{lastName}</td>
-      <td className="verticaly-centered">{departmentName}</td>
+      <td className="verticaly-centered">{departmentId}</td>
       <td className="verticaly-centered">
         <Link to={`/employee/${id}/edit`}>
           <Button bsStyle="link">
@@ -43,7 +43,7 @@ const EmployeesTable = ({employees, showRemoveDialog, className}) => {
           <th>ID</th>
           <th>First Name</th>
           <th>Last Name</th>
-          <th>Department Name</th>
+          <th>Department Id</th>
           <th>Actions</th>
         </tr>
         </thead>

@@ -1,8 +1,14 @@
-import { combineReducers } from "redux";
-import { routerReducer } from "react-router-redux";
-import { reducer as formReducer } from "redux-form";
+import {combineReducers} from "redux";
+import {routerReducer} from "react-router-redux";
+import {reducer as formReducer} from "redux-form";
 
-// main reducers
+import department from './department';
+import employee from './employee';
+
+// main reducer
 export const reducers = combineReducers({
-  routing: routerReducer
+  routing: routerReducer,
+  departments: department,
+  employees: employee,
+  form: formReducer
 });

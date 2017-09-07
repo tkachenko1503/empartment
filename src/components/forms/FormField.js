@@ -2,7 +2,7 @@ import React from "react";
 import {FormGroup, FormControl, ControlLabel, Col} from "react-bootstrap";
 
 const FormField = props => {
-  const {name, label, error, value} = props;
+  const {input, name, label, error} = props;
   const state = error ? "error" : null;
 
   return (
@@ -12,7 +12,7 @@ const FormField = props => {
       </Col>
 
       <Col sm={10}>
-        <FormControl type="text" value={value}/>
+        <FormControl {...input} type="text"/>
       </Col>
     </FormGroup>
   );
